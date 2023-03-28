@@ -10,7 +10,9 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-
+<img width="200px" src="https://uploads-ssl.webflow.com/62a20ae4ebf21eb714ec0510/62de9e026639ce8dd7828768_leafcloud-logo%20(1)-p-500.png">
+<br/>
+<br/>
 <div class="p-5">
     <h1>From plug to app</h1>
 
@@ -25,7 +27,7 @@
             </label>
             <button type="submit">Generate image</button>
         </form>
-        <image class="generated-image"></image>
+        <img id="generated-image"></img>
     </div>
 
 
@@ -43,21 +45,13 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('.prompt-form').addEventListener('submit', function (event) {
-            var data = this;
-            fetch(data.getAttribute('action') + "?prompt=" + data["prompt"].value, {
-                method: "GET",
-            }).then(res => res.text())
-                .then(function (data) {
-                    document
-                        .getElementById('img')
-                        .src = "data:image/jpg;base64," + btoa(data)
-                });
+            const data = this;
+            document
+                .getElementById('generated-image')
+                .src = data.getAttribute('action') + "?prompt=" + data["prompt"].value
             event.preventDefault();
         });
     });
 </script>
-<styles>
-
-</styles>
 </body>
 </html>
