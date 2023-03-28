@@ -7,7 +7,7 @@ import torch
 from diffusers import StableDiffusionPipeline
 
 pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", torch_dtype=torch.float16)
-pipe = pipe.to("cpu")
+pipe = pipe.to("cuda")
 
 def index(request):
     return render(request, 'stablediffusion/index.html')
