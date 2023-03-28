@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="p-5">
+    <h1>From plug to app</h1>
+
+    <div>
+        <h2>The app</h2>
+
+        <form class="prompt-form" action="/stablediffusion/prompt">
+
+            <label>
+                <h3>Write something here:</h3>
+                <input type="text" name="prompt"/>
+            </label>
+            <button type="submit">Generate image</button>
+        </form>
+        <image class="generated-image"></image>
+    </div>
+
+
+    <h2>How did we do it?</h2>
+    <ol>
+        <li>create django backend</li>
+        <li>add stable diffusion image generator to django backend</li>
+        <li>deploy backend to server</li>
+        <li>create html frontend</li>
+        <li>communicate with ajax requests to generate images using a prompt</li>
+        <li>make it pretty</li>
+
+    </ol>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('.prompt-form').addEventListener('submit', function (event) {
+            var data = this;
+            fetch(data.getAttribute('action') + "?prompt=" + data["prompt"].value, {
+                method: "GET",
+            }).then(res => res.text())
+                .then(function (data) {
+                    document
+                        .getElementById('img')
+                        .src = "data:image/jpg;base64," + btoa(data)
+                });
+            event.preventDefault();
+        });
+    });
+</script>
+<styles>
+
+</styles>
+</body>
+</html>
